@@ -1,3 +1,11 @@
+> **⚠️ Work in Progress**
+> 
+> This repository is under active development and is **not ready for external use**.
+> The skills, APIs, and documentation may change significantly without notice.
+> Please do not depend on this repository until it reaches a stable release.
+
+---
+
 # Skills
 
 AI agent skills for Bkper development. These skills provide procedural knowledge to AI coding assistants (Claude Code, OpenCode, Gemini CLI) when working on Bkper projects.
