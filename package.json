@@ -1,0 +1,11 @@
+{
+  "name": "skills",
+  "version": "1.0.0",
+  "description": "AI agent skills for Bkper development",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bkper/skills"
+  },
+  "license": "Apache-2.0"
+}
