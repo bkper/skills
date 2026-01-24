@@ -12,7 +12,7 @@ AI agent skills for Bkper development. These skills provide procedural knowledge
 
 ## What are Skills?
 
-Skills are markdown files that teach AI assistants how to work with specific technologies and patterns. Unlike static project documentation (`AGENTS.md`), skills contain dynamic, procedural knowledge that can be automatically updated across projects.
+Skills are markdown files that teach AI assistants how to work with specific technologies and patterns. Unlike static project documentation (`AGENTS.md`), skills contain dynamic, procedural knowledge that can be automatically updated.
 
 ## Available Skills
 
@@ -22,38 +22,36 @@ Skills are markdown files that teach AI assistants how to work with specific tec
 | `bkper-web-dev` | Web development, @bkper/web-* packages, Lit components, auth |
 | `bkper-script-dev` | Local scripting, CLI usage, bulk operations |
 
-## Usage
+## Distribution
 
-### In Bkper App Projects
+Skills are distributed **globally** to `~/.claude/skills/` and managed automatically by the Bkper CLI.
 
-Skills are automatically installed when you create a new app with `bkper init`. They are stored in `.claude/skills/` and configured in `bkperapp.yaml`:
+### Automatic Updates
 
-```yaml
-# bkperapp.yaml
-skills:
-  autoUpdate: true
-  installed:
-    - bkper-app-dev
-    - bkper-web-dev
+The CLI checks for updates and syncs all skills when running:
+- `bkper apps init <name>` - when creating a new app
+- `bkper mcp start` - when starting the MCP server
+
+### How It Works
+
+1. CLI fetches `version.txt` from this repository
+2. Compares with local version in `~/.config/bkper/skills.yaml`
+3. If version differs (or skills are missing), downloads all `bkper-*` skills
+4. Skills are available to all projects via the global location
+
+### Version Tracking
+
 ```
+~/.claude/skills/
+├── bkper-app-dev/
+│   └── SKILL.md
+├── bkper-web-dev/
+│   └── SKILL.md
+└── bkper-script-dev/
+    └── SKILL.md
 
-### Manual Installation
-
-Copy the desired skill folder to your project:
-
-```bash
-cp -r skills/bkper-app-dev .claude/skills/
-```
-
-### Auto-Update
-
-When `autoUpdate: true` (default), the Bkper CLI will check for skill updates when running `bkper dev` and sync them automatically.
-
-To disable auto-update:
-
-```yaml
-skills:
-  autoUpdate: false
+~/.config/bkper/skills.yaml
+└── version: 1
 ```
 
 ## Skill Format
@@ -67,7 +65,6 @@ skills/
 ```
 
 The `SKILL.md` file contains:
-- Skill metadata (name, description, version)
 - Procedural knowledge and patterns
 - Code examples and best practices
 
@@ -75,16 +72,14 @@ The `SKILL.md` file contains:
 
 When updating skills:
 
-1. Edit the relevant `SKILL.md` file
-2. Update the version in the skill metadata
-3. Test with a sample project
-4. Commit and push
-
-Changes will propagate to projects with `autoUpdate: true` on their next `bkper dev` run.
+1. Edit the relevant `SKILL.md` file in `skills/`
+2. Commit and push to `main`
+3. GitHub Action auto-increments `version.txt`
+4. Changes propagate to users on next CLI command
 
 ## Compatibility
 
 Skills are compatible with:
-- Claude Code (`.claude/skills/`)
-- OpenCode (`.claude/skills/` or `.opencode/skills/`)
+- Claude Code (`~/.claude/skills/`)
+- OpenCode (`~/.claude/skills/`)
 - Other Agent Skills-compatible tools
