@@ -34,12 +34,12 @@ The CLI checks for updates and syncs all skills when running:
 
 ### How It Works
 
-1. CLI fetches `version.txt` from this repository
-2. Compares with local version in `~/.config/bkper/skills.yaml`
-3. If version differs (or skills are missing), downloads all `bkper-*` skills
+1. CLI fetches the latest commit SHA that touched `skills/` folder via GitHub API
+2. Compares with local commit in `~/.config/bkper/skills.yaml`
+3. If commit differs (or skills are missing), downloads all `bkper-*` skills
 4. Skills are available to all projects via the global location
 
-### Version Tracking
+### Local State
 
 ```
 ~/.claude/skills/
@@ -51,7 +51,7 @@ The CLI checks for updates and syncs all skills when running:
     └── SKILL.md
 
 ~/.config/bkper/skills.yaml
-└── version: 1
+└── commit: "abc123..."
 ```
 
 ## Skill Format
@@ -74,8 +74,7 @@ When updating skills:
 
 1. Edit the relevant `SKILL.md` file in `skills/`
 2. Commit and push to `main`
-3. GitHub Action auto-increments `version.txt`
-4. Changes propagate to users on next CLI command
+3. Changes propagate to users instantly on next CLI command
 
 ## Compatibility
 
