@@ -8,10 +8,10 @@ Knowledge for writing local scripts and automation using `bkper-js` and the Bkpe
 
 ```bash
 # Install globally
-bun add -g bkper-cli
+bun add -g bkper
 
 # Or use npx
-npx bkper-cli
+npx bkper
 ```
 
 ### Authentication

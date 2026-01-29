@@ -2,6 +2,51 @@
 
 Core knowledge for building Bkper apps using `bkper-js` SDK and Workers for Platforms.
 
+## Development Workflow
+
+### Web Handler (UI)
+
+The web handler provides the UI shown when users open your app from Bkper's menu. Development uses a local server with hot-reload:
+
+```bash
+bun run dev
+```
+
+Changes to frontend code reflect immediately. The local URL is configured in `bkperapp.yaml` as `menuUrlDev`.
+
+### Events Handler (Webhooks)
+
+The events handler processes webhooks from Bkper. Development uses the **dev environment** instead of local:
+
+```bash
+bun run deploy:dev
+```
+
+This deploys to `https://{app-id}-dev.bkper.app/events` — a stable URL configured as `webhookUrlDev` in `bkperapp.yaml`.
+
+**Why deploy instead of local?** 
+- Webhook testing involves triggering events from Bkper
+- The dev environment tests against real platform resources (KV, secrets)
+- No tunnel setup required
+
+### Continuous Development Pattern
+
+When iterating on the events handler:
+
+1. Watch `packages/events/src/` for file changes
+2. On change: run `bun run deploy:dev`
+3. Report deployment status to developer
+
+This pattern enables rapid iteration. AI coding agents can automate this cycle.
+
+### Production Deployment
+
+```bash
+bun run deploy
+```
+
+Builds all packages and deploys to `https://{app-id}.bkper.app`.
+
 ## Bkper Core Concepts
 
 ### Data Model
@@ -22,7 +67,7 @@ Core knowledge for building Bkper apps using `bkper-js` SDK and Workers for Plat
 
 ### The Zero-Sum Invariant
 
-Every transaction moves an amount FROM one account TO another. The sum of all account balances in a book always equals zero. This is fundamental - never break this invariant.
+Every transaction moves an amount FROM one account TO another. The sum of all account balances in a book always equals zero. This is fundamental — never break this invariant.
 
 ## bkper-js SDK
 
@@ -223,23 +268,16 @@ ownerWebsite: https://yoursite.com
 
 developers: your-username
 
-# Menu integration
+# Menu integration (web handler)
 menuUrl: https://${id}.bkper.app?bookId=${book.id}
 menuUrlDev: http://localhost:8787?bookId=${book.id}
 
-# Event handling
+# Event handling (events handler)
 webhookUrl: https://${id}.bkper.app/events
-webhookUrlDev: http://localhost:8788/events
+webhookUrlDev: https://${id}-dev.bkper.app/events
 apiVersion: v5
 events:
     - TRANSACTION_CHECKED
-
-# Developer tooling
-skills:
-    autoUpdate: true
-    installed:
-        - bkper-app-dev
-        - bkper-web-dev
 ```
 
 ### Menu URL Variables
@@ -292,5 +330,3 @@ for (const connectedBook of connectedBooks) {
     }
 }
 ```
-
-##
