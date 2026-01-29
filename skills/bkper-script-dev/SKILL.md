@@ -40,8 +40,8 @@ bkper books get <bookId>
 bkper transactions list <bookId> --query "after:2024-01-01"
 
 # App commands
-bkper apps create    # Create app from bkperapp.yaml
-bkper apps update    # Update app from bkperapp.yaml
+bkper apps create    # Create app from bkper.yaml
+bkper apps update    # Update app from bkper.yaml
 bkper apps deploy    # Deploy to Workers for Platforms
 bkper apps status    # Check deployment status
 ```

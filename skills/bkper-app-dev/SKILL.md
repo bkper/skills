@@ -12,7 +12,7 @@ The web handler provides the UI shown when users open your app from Bkper's menu
 bun run dev
 ```
 
-Changes to frontend code reflect immediately. The local URL is configured in `bkperapp.yaml` as `menuUrlDev`.
+Changes to frontend code reflect immediately. The local URL is configured in `bkper.yaml` as `menuUrlDev`.
 
 ### Events Handler (Webhooks)
 
@@ -22,7 +22,7 @@ The events handler processes webhooks from Bkper. Development uses the **dev env
 bun run deploy:dev
 ```
 
-This deploys to `https://{app-id}-dev.bkper.app/events` — a stable URL configured as `webhookUrlDev` in `bkperapp.yaml`.
+This deploys to `https://{app-id}-dev.bkper.app/events` — a stable URL configured as `webhookUrlDev` in `bkper.yaml`.
 
 **Why deploy instead of local?** 
 - Webhook testing involves triggering events from Bkper
@@ -253,7 +253,7 @@ type Result = {
 } // Error
 ```
 
-## App Configuration (bkperapp.yaml)
+## App Configuration (bkper.yaml)
 
 ```yaml
 id: my-app
