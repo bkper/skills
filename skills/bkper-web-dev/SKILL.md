@@ -362,5 +362,5 @@ bun run dev
 bun run build
 
 # Deploy to Bkper Platform
-bkper apps deploy
+bkper app deploy
 ```

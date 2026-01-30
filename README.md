@@ -29,7 +29,7 @@ Skills are distributed **globally** to `~/.claude/skills/` and managed automatic
 ### Automatic Updates
 
 The CLI checks for updates and syncs all skills when running:
-- `bkper apps init <name>` - when creating a new app
+- `bkper app init <name>` - when creating a new app
 - `bkper mcp start` - when starting the MCP server
 
 ### How It Works
