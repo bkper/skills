@@ -31,17 +31,25 @@ bkper logout
 
 ```bash
 # List your books
-bkper books
+bkper book list
 
 # Get book details
-bkper books get <bookId>
+bkper book get <bookId>
+
+# List accounts
+bkper account list <bookId>
+
+# List groups
+bkper group list <bookId>
 
 # List transactions
-bkper transactions list <bookId> --query "after:2024-01-01"
+bkper transaction list <bookId> -q "after:2024-01-01"
+
+# Get balances
+bkper balance get <bookId>
 
 # App commands
-bkper app create    # Create app from bkper.yaml
-bkper app update    # Update app from bkper.yaml
+bkper app sync      # Sync app from bkper.yaml
 bkper app deploy    # Deploy to Workers for Platforms
 bkper app status    # Check deployment status
 ```

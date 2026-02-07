@@ -1,5 +1,5 @@
 > **⚠️ Work in Progress**
-> 
+>
 > This repository is under active development and is **not ready for external use**.
 > The skills, APIs, and documentation may change significantly without notice.
 > Please do not depend on this repository until it reaches a stable release.
@@ -16,11 +16,11 @@ Skills are markdown files that teach AI assistants how to work with specific tec
 
 ## Available Skills
 
-| Skill | Description |
-|-------|-------------|
-| `bkper-app-dev` | Core SDK, bkper-js, event handling, app configuration |
-| `bkper-web-dev` | Web development, @bkper/web-* packages, Lit components, auth |
-| `bkper-script-dev` | Local scripting, CLI usage, bulk operations |
+| Skill              | Description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| `bkper-app-dev`    | Core SDK, bkper-js, event handling, app configuration         |
+| `bkper-web-dev`    | Web development, @bkper/web-\* packages, Lit components, auth |
+| `bkper-script-dev` | Local scripting, CLI usage, bulk operations                   |
 
 ## Distribution
 
@@ -29,8 +29,9 @@ Skills are distributed **globally** to `~/.claude/skills/` and managed automatic
 ### Automatic Updates
 
 The CLI checks for updates and syncs all skills when running:
+
 - `bkper app init <name>` - when creating a new app
-- `bkper mcp start` - when starting the MCP server
+- `bkper login` - when authenticating
 
 ### How It Works
 
@@ -65,6 +66,7 @@ skills/
 ```
 
 The `SKILL.md` file contains:
+
 - Procedural knowledge and patterns
 - Code examples and best practices
 
@@ -79,6 +81,7 @@ When updating skills:
 ## Compatibility
 
 Skills are compatible with:
+
 - Claude Code (`~/.claude/skills/`)
 - OpenCode (`~/.claude/skills/`)
 - Other Agent Skills-compatible tools
