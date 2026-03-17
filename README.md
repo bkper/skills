@@ -14,13 +14,17 @@ AI agent skills for Bkper development. These skills provide procedural knowledge
 
 Skills are markdown files that teach AI assistants how to work with specific technologies and patterns. Unlike static project documentation (`AGENTS.md`), skills contain dynamic, procedural knowledge that can be automatically updated.
 
+These Bkper skills are intentionally **docs-first**: each skill stays lightweight and points to public `bkper.com/docs/*.md` pages as the primary source of truth.
+
 ## Available Skills
 
-| Skill              | Description                                                   |
-| ------------------ | ------------------------------------------------------------- |
-| `bkper-app-dev`    | Core SDK, bkper-js, event handling, app configuration         |
-| `bkper-web-dev`    | Web development, @bkper/web-\* packages, Lit components, auth |
-| `bkper-script-dev` | Local scripting, CLI usage, bulk operations                   |
+| Skill                      | Description                                                                                       |
+| -------------------------- | ------------------------------------------------------------------------------------------------- |
+| `bkper-support-specialist` | Broad product/support routing using `https://bkper.com/llms.txt` and docs `.md` pages           |
+| `bkper-app-manager`        | App lifecycle operations: init, dev, build, sync, deploy, secrets, and install/uninstall        |
+| `bkper-app-dev`            | Platform app implementation references: architecture, configuration, events, menu, and deploy    |
+| `bkper-web-dev`            | Web interface references with `@bkper/web-auth`, `@bkper/web-design`, and dev workflow          |
+| `bkper-script-dev`         | Automation references for CLI pipelines, Node.js scripts, and direct REST usage                  |
 
 ## Distribution
 
@@ -44,6 +48,10 @@ The CLI checks for updates and syncs all skills when running:
 
 ```
 ~/.claude/skills/
+├── bkper-support-specialist/
+│   └── SKILL.md
+├── bkper-app-manager/
+│   └── SKILL.md
 ├── bkper-app-dev/
 │   └── SKILL.md
 ├── bkper-web-dev/
