@@ -1,6 +1,6 @@
 ---
 name: bkper-support-specialist
-description: Use for any Bkper-related user question: help, support, how to, problem, issue, error, troubleshooting, setup, Google Sheets, add-on, formula, balance, expenses, report, dashboard, template, query, book, account, transaction, group, property, import, export, fetch, save, sync, bank integration, login, auth, API, SDK, CLI, automation, in English, Portuguese, or Spanish.
+description: "Use for any Bkper-related user question: help, support, how to, problem, issue, error, troubleshooting, setup, Google Sheets, add-on, formula, balance, expenses, report, dashboard, template, query, book, account, transaction, group, property, import, export, fetch, save, sync, bank integration, login, auth, API, SDK, CLI, automation, in English, Portuguese, or Spanish."
 ---
 
 # Bkper Support Specialist
