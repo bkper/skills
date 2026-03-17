@@ -25,6 +25,7 @@ These Bkper skills are intentionally **docs-first**: each skill stays lightweigh
 | `bkper-app-dev`            | Platform app implementation references: architecture, configuration, events, menu, and deploy    |
 | `bkper-web-dev`            | Web interface references with `@bkper/web-auth`, `@bkper/web-design`, and dev workflow          |
 | `bkper-script-dev`         | Automation references for CLI pipelines, Node.js scripts, and direct REST usage                  |
+| `screenshot-abstraction`   | Create abstract UI wireframes from screenshots using Excalidraw for docs and style guides        |
 
 ## Distribution
 
@@ -56,7 +57,9 @@ The CLI checks for updates and syncs all skills when running:
 │   └── SKILL.md
 ├── bkper-web-dev/
 │   └── SKILL.md
-└── bkper-script-dev/
+├── bkper-script-dev/
+│   └── SKILL.md
+└── screenshot-abstraction/
     └── SKILL.md
 
 ~/.config/bkper/skills.yaml
