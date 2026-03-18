@@ -124,7 +124,7 @@ Before drawing, reduce the diagram to its essential teaching elements:
 - debit vs credit sides
 - grouped sections
 - headings / labels
-- transaction blocks
+- transaction relationships across accounts
 - amount emphasis
 - hierarchy and nesting
 - semantic account or group role (Asset / Liability / Incoming / Outgoing / mixed-type / neutral)
@@ -150,6 +150,9 @@ Create a new `.excalidraw` file that preserves:
 - semantic colors
 - relative spacing and grouping
 - the key directional or structural logic
+- the established shape language of related diagrams in the same documentation family
+
+When the surrounding reference diagrams use square blocks, set rectangle `roundness` to `null` instead of using rounded corners.
 
 Use simple Excalidraw primitives:
 - rectangles
@@ -242,13 +245,63 @@ Always preserve:
 - balance accumulation structure where relevant
 - entry ordering when it helps explanation
 
+### Transaction-Across-T-Accounts Rule
+
+When the same transaction is represented across two or more T-accounts, think in **participating debit/credit half-cells**, not in total account count.
+
+For each movement:
+- identify which half-cell participates in each T-account
+- place the entry text fully inside that participating half-cell first
+- keep each entry block inside its own debit/credit side and away from the center divider and outer border
+- then draw **one gray dashed rounded rectangle per movement** around the union of those related entry blocks
+- allow that shared rounded rectangle to span across account gaps when needed
+- but keep the shared rounded rectangle inside the participating half-cells only
+
+This rule applies equally whether the diagram uses **2, 3, or 4 T-balances**.
+
+If the shared rounded rectangle does not fit cleanly:
+- widen the account boxes
+- and/or increase spacing between accounts
+- and/or rebalance the composition
+
+Do **not**:
+- draw a separate dashed rounded rectangle around each individual entry
+- let the shared rounded rectangle spill into non-participating debit/credit halves
+- keep a cramped original layout if that forces text or the shared rounded rectangle to overflow
+
+The visual unit is the **movement across participating half-cells**, not the number of accounts on the canvas.
+
 ### T-Account Checklist
 - Is the account identity clear?
 - Is left vs right visually unmistakable?
 - Are debit and credit semantics preserved?
-- Are entries aligned consistently?
+- Are entries aligned consistently inside the correct half-cell?
+- Does each shared transaction envelope cover the related entries for one movement only?
+- Does the shared transaction envelope stay inside the participating half-cells only?
+- If the envelope did not fit, was the layout widened instead of allowing overflow?
 - Are amounts or emphasis bars placed in the correct side?
 - Does the result still teach bookkeeping correctly even without the original PNG?
+
+### T-Account Shared Transaction Envelope Benchmarks
+
+For the preferred transaction-span pattern, study:
+
+- `/Users/jacobvandenberg/Repositories/bkper-mkt/tools/excalidraw-export/samples/benchmark-t-account-shared-transaction-envelope.excalidraw`
+- `/Users/jacobvandenberg/Repositories/bkper-mkt/tools/excalidraw-export/samples/accounting-principles-2-bad-good.excalidraw`
+
+These benchmarks demonstrate the correct pattern when one movement is represented across T-accounts:
+
+- entry text stays inside the correct T-balance half-cell
+- the shared **gray dashed rounded rectangle** spans the related descriptions across participating T-accounts
+- the dashed rounded rectangle represents the **shared movement**, not an individual entry box
+- use one rounded dashed transaction envelope per movement
+- if needed, widen the account layout so the shared rounded rectangle fits correctly
+
+The `accounting-principles-2-bad-good` comparator is especially important because it shows the failure mode to avoid:
+- a shared rounded rectangle that overflows into non-participating halves
+- entry text placement derived too loosely from the full account instead of the participating half-cell
+
+When in doubt, match these benchmarks more closely than the source PNG.
 
 ## Color Rules
 
@@ -313,6 +366,23 @@ Follow the Excalidraw diagram style already established in:
 - `/Users/jacobvandenberg/Repositories/bkper-mkt/tools/excalidraw-export/samples/`
 - `/Users/jacobvandenberg/Repositories/bkper-mkt/web/docs/src/assets/docs/guides/accounting-principles/`
 
+### Style Consistency Rule
+
+When a guide domain already has an established diagram family, match that family’s visual language.
+
+For example, in the accounting-principles guides, files like:
+- `advanced-few-accounts.excalidraw`
+- `advanced-detailed-accounts.excalidraw`
+- `advanced-account-types.excalidraw`
+
+establish a preferred style for account-flow and T-account-adjacent diagrams:
+- **square account blocks**
+- strong semantic headers
+- clearly tinted semantic bodies
+- minimal neutral structure
+
+Do **not** introduce a different shape language such as heavily rounded account containers if the surrounding guide family uses square blocks.
+
 ### Preferred Characteristics
 - simple geometry
 - consistent spacing
@@ -320,6 +390,7 @@ Follow the Excalidraw diagram style already established in:
 - semantic colors
 - enough text only when concept labels are necessary
 - export-friendly structure
+- shape consistency with nearby related diagrams
 
 ## Use of Text
 

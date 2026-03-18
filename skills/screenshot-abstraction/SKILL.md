@@ -62,11 +62,23 @@ This exports all `.excalidraw` files without corresponding `.svg` files.
 | Traffic light - close | Red | `#ff5f57` |
 | Traffic light - minimize | Yellow | `#ffbd2e` |
 | Traffic light - maximize | Green | `#28c940` |
-| Asset accounts (Bkper) | Yellow | `#fab005` |
+| Asset accounts (Bkper) | Blue | `#228be6` |
 | Liability accounts (Bkper) | Yellow | `#fab005` |
-| Income/positive (Bkper) | Green | `#228c33` |
-| Expense/negative (Bkper) | Red | `#bf4436` |
+| Income / incoming (Bkper) | Green | `#2f9e44` |
+| Expense / outgoing (Bkper) | Red | `#e03131` |
 | Progress bar fill | Green | `#40c057` |
+
+### Bkper Semantic Color Rules
+
+When the screenshot abstraction represents bookkeeping meaning rather than generic UI chrome, prefer canonical Bkper semantics over legacy screenshot colors:
+
+- Asset = blue
+- Liability = yellow
+- Incoming = green
+- Outgoing = red
+- Mixed / neutral / structural = gray
+
+If the screenshot's original tint conflicts with the accounting meaning, follow the accounting meaning.
 
 ### Element Conventions
 
@@ -189,6 +201,19 @@ File wrapper:
 }
 ```
 
+### Element Index Rule
+
+Keep all element `index` values in the `a` range only:
+
+- use `a0`…`a9`, `aA`…`aZ`
+- avoid `b*`, `c*`, or later prefixes
+
+Reason: some non-`a` prefixes can prevent creating new elements in the VS Code Excalidraw extension.
+
+For Excalidraw authoring constraints and benchmark samples, also consult:
+
+- `/Users/jacobvandenberg/Repositories/bkper-mkt/tools/excalidraw-export/README.md`
+
 ## Reference Samples
 
 Located at: `/Users/jacobvandenberg/Repositories/bkper-mkt/tools/excalidraw-export/samples/`
@@ -201,6 +226,8 @@ Located at: `/Users/jacobvandenberg/Repositories/bkper-mkt/tools/excalidraw-expo
 | `screenshot-bkper-transactions-dark.png` | Source screenshot (dark mode) |
 
 Study these for style consistency when creating new abstractions.
+
+For bookkeeping-specific T-account transaction-envelope patterns, use `diagram-excalidraw-conversion` and the benchmark files in `tools/excalidraw-export/samples/` rather than inventing a screenshot-style solution here.
 
 ## Tips
 
