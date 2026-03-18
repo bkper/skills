@@ -47,11 +47,12 @@ The `web/docs/src/content/docs/guides/accounting-principles/fundamentals/double-
 3. **Expect refinement passes**
    - First-pass recreation is often good enough to start, but T-account and bookkeeping diagrams usually need at least one semantic review.
 
-4. **Preserve Bkper semantic colors**
+4. **Use canonical Bkper semantic colors, not legacy image colors**
    - Blue = Asset
    - Yellow = Liability
    - Green = Incoming
    - Red = Outgoing
+   - Gray = structural elements and mixed-type grouping
 
 5. **Guide integration is part of the work**
    - The job is not complete when the `.excalidraw` file exists.
@@ -126,10 +127,24 @@ Before drawing, reduce the diagram to its essential teaching elements:
 - transaction blocks
 - amount emphasis
 - hierarchy and nesting
+- semantic account or group role (Asset / Liability / Incoming / Outgoing / mixed-type / neutral)
 
 Do not redraw decorative clutter that does not help explanation.
 
-### 3. Recreate in Excalidraw
+### 3. Normalize Semantic Colors Before Drawing
+Before creating Excalidraw elements, decide the intended semantic color of each meaningful element.
+
+For each account, node, or grouped result, ask:
+- Is this an **Asset**?
+- Is this a **Liability**?
+- Is this **Incoming**?
+- Is this **Outgoing**?
+- Is this a **mixed-type grouping** such as Equity or Net Profit shown as a grouped result?
+- Is this merely **structural / neutral**?
+
+Then apply the canonical Bkper color mapping rather than copying the original PNG tint.
+
+### 4. Recreate in Excalidraw
 Create a new `.excalidraw` file that preserves:
 - the explanatory layout
 - semantic colors
@@ -202,6 +217,19 @@ Check that:
 - the image is better represented as a croque
 - the image is a GIF
 
+## Mixed-Type Grouping Rules
+
+Use **gray** when a grouped result combines more than one account-type family in a way that Bkper represents as a neutral grouped total.
+
+Typical examples:
+- **Equity** shown as a grouped result of Assets + Liabilities
+- **Net Profit** shown as a grouped result of Incoming + Outgoing
+- cross-type parent groups used to summarize multiple semantic families
+
+Important distinction:
+- A normal single-type group should keep its semantic family color where that improves understanding.
+- A cross-type result or summary should use **gray** to show it is a grouped neutral outcome rather than a single account type.
+
 ## T-Account Rules
 
 T-account diagrams need extra care.
@@ -224,7 +252,25 @@ Always preserve:
 
 ## Color Rules
 
-Use Bkper semantic colors consistently.
+Use **Bkper semantic colors** consistently, with the Bkper design system as the source of truth.
+
+Reference palette authority:
+- `https://bkper.app/design/v2/style.css`
+- local guidance already used in the repo:
+  - `/Users/jacobvandenberg/Repositories/bkper-mkt/tools/excalidraw-export/STYLE-GUIDE.md`
+
+### Semantic Color Priority
+
+Choose colors in this order:
+
+1. **Accounting meaning** of the node / account / group
+2. **Guide context** and nearby explanatory text
+3. **Canonical Bkper design-token palette**
+4. **Original source-image color** only as a fallback hint when meaning is ambiguous
+
+Do **not** preserve legacy PNG colors if they conflict with the intended Bkper semantic color.
+
+### Canonical Mapping
 
 | Meaning | Color | Hex |
 |--------|-------|-----|
@@ -232,13 +278,32 @@ Use Bkper semantic colors consistently.
 | Liability | Yellow | `#fab005` |
 | Incoming | Green | `#2f9e44` or `#228c33` |
 | Outgoing | Red | `#e03131` or `#bf4436` |
+| Mixed-type grouping (`Asset + Liability`, `Incoming + Outgoing`) | Gray | `#868e96` |
 | Structural / neutral text bars | Gray | `#868e96` |
 | Secondary / muted text bars | Light gray | `#adb5bd` |
 | Borders / dividers | Very light gray | `#dee2e6` |
 
+### Semantic Interpretation Rules
+
+When converting a diagram, infer the role of each element before assigning color.
+
+Examples:
+- **Bank**, **Cash**, **Inventory**, **Receivables** → usually **Asset** → blue
+- **Loans**, **Providers**, **Payables**, **Taxes payable** → usually **Liability** → yellow
+- **Revenue**, **Service**, **Sales**, **Income** → **Incoming** → green
+- **Expenses**, **Transport**, **Gasoline**, **Rent**, **Fees** → **Outgoing** → red
+- **Equity**, **Net Profit**, or any group mixing two account-type families → gray when shown as cross-type grouping
+- Neutral frames, arrows, dividers, label bars, and layout scaffolding → gray / light gray
+
+If semantic meaning is clear from the guide or diagram labels, normalize to the canonical palette even if the original image used a different tint.
+
+If semantic meaning is unclear:
+- prefer neutral gray
+- or surface the ambiguity rather than guessing aggressively
+
 Notes:
 - Prefer consistency within the same guide over mixing near-equivalent shades.
-- Use structural gray for neutral shapes, frames, and explanatory bars.
+- Use structural gray for neutral shapes, frames, explanatory bars, and mixed-type grouped totals.
 - Do not use pure black for structural elements intended to work on dark backgrounds.
 
 ## Style Rules
