@@ -26,6 +26,32 @@ These Bkper skills are intentionally **docs-first**: each skill stays lightweigh
 | `bkper-web-dev`            | Web interface references with `@bkper/web-auth`, `@bkper/web-design`, and dev workflow          |
 | `bkper-script-dev`         | Automation references for CLI pipelines, Node.js scripts, and direct REST usage                  |
 | `screenshot-abstraction`   | Create abstract UI wireframes from screenshots using Excalidraw for docs and style guides        |
+| `diagram-excalidraw-conversion` | Convert conceptual guide diagrams into Excalidraw source and exported SVG assets             |
+| `guide-visual-modernization` | Orchestrate guide-by-guide visual review, removal, routing, and modernization workflows        |
+
+## How the Visual Modernization Skills Work Together
+
+These three skills form a layered workflow for updating documentation visuals:
+
+1. **`guide-visual-modernization`** — start here when working from a full guide
+   - Reads the guide in context
+   - Inventories visuals
+   - Decides what should be removed, deferred, or modernized
+   - Routes each visual to the correct specialized workflow
+
+2. **`diagram-excalidraw-conversion`** — use for conceptual diagrams
+   - Handles T-accounts, flow diagrams, grouped balance diagrams, and other instructional illustrations
+   - Produces `.excalidraw` source and exported SVG assets
+
+3. **`screenshot-abstraction`** — use for screenshot-derived abstractions
+   - Takes a real UI screenshot (typically captured from the current PWA)
+   - Converts it into a croque-style Excalidraw abstraction
+
+### Recommended usage
+
+- Start with **`guide-visual-modernization`** when the task begins from a guide file
+- Use **`diagram-excalidraw-conversion`** when the image is clearly a conceptual diagram
+- Use **`screenshot-abstraction`** when the image is a real or screenshot-like UI state that should become an abstract croque
 
 ## Distribution
 
