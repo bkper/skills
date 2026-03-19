@@ -18,41 +18,25 @@ These Bkper skills are intentionally **docs-first**: each skill stays lightweigh
 
 ## Available Skills
 
-| Skill                      | Description                                                                                       |
-| -------------------------- | ------------------------------------------------------------------------------------------------- |
-| `bkper-support-specialist` | Broad product/support routing using `https://bkper.com/llms.txt` and docs `.md` pages           |
-| `bkper-app-manager`        | App lifecycle operations: init, dev, build, sync, deploy, secrets, and install/uninstall        |
-| `bkper-app-dev`            | Platform app implementation references: architecture, configuration, events, menu, and deploy    |
-| `bkper-web-dev`            | Web interface references with `@bkper/web-auth`, `@bkper/web-design`, and dev workflow          |
-| `bkper-script-dev`         | Automation references for CLI pipelines, Node.js scripts, and direct REST usage                  |
-| `screenshot-abstraction`   | Create abstract UI wireframes from screenshots using Excalidraw for docs and style guides        |
-| `diagram-excalidraw-conversion` | Convert conceptual guide diagrams into Excalidraw source and exported SVG assets             |
-| `guide-visual-modernization` | Orchestrate guide-by-guide visual review, removal, routing, and modernization workflows        |
+| Skill                      | Description                                                                                    |
+| -------------------------- | ---------------------------------------------------------------------------------------------- |
+| `bkper-support-specialist` | Broad product/support routing using `https://bkper.com/llms.txt` and docs `.md` pages        |
+| `bkper-app-manager`        | App lifecycle operations: init, dev, build, sync, deploy, secrets, and install/uninstall     |
+| `bkper-app-dev`            | Platform app implementation references: architecture, configuration, events, menu, and deploy |
+| `bkper-web-dev`            | Web interface references with `@bkper/web-auth`, `@bkper/web-design`, and dev workflow       |
+| `bkper-script-dev`         | Automation references for CLI pipelines, Node.js scripts, and direct REST usage               |
 
-## How the Visual Modernization Skills Work Together
+## Repo-Specific Skills
 
-These three skills form a layered workflow for updating documentation visuals:
+Some skills are intentionally kept close to the repository they serve rather than distributed globally.
 
-1. **`guide-visual-modernization`** — start here when working from a full guide
-   - Reads the guide in context
-   - Inventories visuals
-   - Decides what should be removed, deferred, or modernized
-   - Routes each visual to the correct specialized workflow
+The documentation visual modernization skills were moved to the marketing/docs repo because they depend on repo-local assets and tooling:
 
-2. **`diagram-excalidraw-conversion`** — use for conceptual diagrams
-   - Handles T-accounts, flow diagrams, grouped balance diagrams, and other instructional illustrations
-   - Produces `.excalidraw` source and exported SVG assets
+- `bkper-mkt/web/.agents/skills/guide-visual-modernization/`
+- `bkper-mkt/web/.agents/skills/diagram-excalidraw-conversion/`
+- `bkper-mkt/web/.agents/skills/screenshot-abstraction/`
 
-3. **`screenshot-abstraction`** — use for screenshot-derived abstractions
-   - Takes a real UI screenshot (typically captured from the current PWA)
-   - Converts it into a croque-style Excalidraw abstraction
-
-### Recommended usage
-
-- Start with **`guide-visual-modernization`** when the task begins from a guide file
-- Use **`diagram-excalidraw-conversion`** when the image is clearly a conceptual diagram
-- Use **`screenshot-abstraction`** when the image is a real or screenshot-like UI state that should become an abstract croque
-
+They are no longer part of the shared global skill set in this repository.
 ## Distribution
 
 Skills are distributed **globally** to `~/.claude/skills/` and managed automatically by the Bkper CLI.
@@ -83,9 +67,7 @@ The CLI checks for updates and syncs all skills when running:
 │   └── SKILL.md
 ├── bkper-web-dev/
 │   └── SKILL.md
-├── bkper-script-dev/
-│   └── SKILL.md
-└── screenshot-abstraction/
+└── bkper-script-dev/
     └── SKILL.md
 
 ~/.config/bkper/skills.yaml
