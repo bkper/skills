@@ -1,5 +1,5 @@
 ---
-name: bkper-dev
+name: bkper
 description: Comprehensive Bkper development skill covering CLI usage, SDK code (bkper-js), data management, financial reporting, app development, and support. Use for any Bkper-related task including books, accounts, transactions, groups, balances, queries, apps, automations, or integrations.
 ---
 
