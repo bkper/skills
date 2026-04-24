@@ -12,95 +12,97 @@ AI agent skills for Bkper development. These skills provide procedural knowledge
 
 ## What are Skills?
 
-Skills are markdown files that teach AI assistants how to work with specific technologies and patterns. Unlike static project documentation (`AGENTS.md`), skills contain dynamic, procedural knowledge that can be automatically updated.
+Skills are self-contained capability packages that teach AI assistants how to work with specific technologies and patterns. Unlike static project documentation (`AGENTS.md`), skills contain procedural knowledge that can be loaded on-demand.
 
-These Bkper skills are intentionally **docs-first**: each skill stays lightweight and points to public `bkper.com/docs/*.md` pages as the primary source of truth.
+This repository contains a **single unified skill** derived from the validated `bkper-cli` agent configuration. It replaces the previous collection of theoretical, URL-only skills with one self-contained package that bundles all reference documentation.
 
-## Available Skills
+## Available Skill
 
-| Skill                      | Description                                                                                    |
-| -------------------------- | ---------------------------------------------------------------------------------------------- |
-| `bkper-support-specialist` | Broad product/support routing using `https://bkper.com/llms.txt` and docs `.md` pages        |
-| `bkper-app-manager`        | App lifecycle operations: init, dev, build, sync, deploy, secrets, and install/uninstall     |
-| `bkper-app-dev`            | Platform app implementation references: architecture, configuration, events, menu, and deploy |
-| `bkper-web-dev`            | Web interface references with `@bkper/web-auth`, `@bkper/web-design`, and dev workflow       |
-| `bkper-script-dev`         | Automation references for CLI pipelines, Node.js scripts, and direct REST usage               |
+| Skill        | Description                                                                                                          |
+| ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `bkper-dev`  | Comprehensive Bkper development: CLI usage, SDK code (bkper-js), data management, financial reporting, app lifecycle |
 
-## Repo-Specific Skills
+## How This Skill Is Generated
 
-Some skills are intentionally kept close to the repository they serve rather than distributed globally.
-
-The documentation visual modernization skills were moved to the marketing/docs repo because they depend on repo-local assets and tooling:
-
-- `bkper-mkt/web/.agents/skills/guide-visual-modernization/`
-- `bkper-mkt/web/.agents/skills/diagram-excalidraw-conversion/`
-- `bkper-mkt/web/.agents/skills/screenshot-abstraction/`
-
-They are no longer part of the shared global skill set in this repository.
-## Distribution
-
-Skills are distributed **globally** to `~/.claude/skills/` and managed automatically by the Bkper CLI.
-
-### Automatic Updates
-
-The CLI checks for updates and syncs all skills when running:
-
-- `bkper app init <name>` - when creating a new app
-- `bkper login` - when authenticating
-
-### How It Works
-
-1. CLI fetches the latest commit SHA that touched `skills/` folder via GitHub API
-2. Compares with local commit in `~/.config/bkper/skills.yaml`
-3. If commit differs (or skills are missing), downloads all `bkper-*` skills
-4. Skills are available to all projects via the global location
-
-### Local State
+The `bkper-dev` skill is **auto-generated** from the `bkper-cli` agent source. It is not hand-edited.
 
 ```
-~/.claude/skills/
-├── bkper-support-specialist/
-│   └── SKILL.md
-├── bkper-app-manager/
-│   └── SKILL.md
-├── bkper-app-dev/
-│   └── SKILL.md
-├── bkper-web-dev/
-│   └── SKILL.md
-└── bkper-script-dev/
-    └── SKILL.md
-
-~/.config/bkper/skills.yaml
-└── commit: "abc123..."
+bkper-cli/
+├── src/agent/system-prompt.ts   ← Bkper context, operating principles, routing
+├── docs/*.md                    ← Reference documentation (core-concepts, data-management, etc.)
+└── scripts/generate-skill.ts    ← Derives ../skills/skills/bkper-dev/
 ```
 
-## Skill Format
+When the CLI agent evolves:
 
-Each skill follows the [Agent Skills specification](https://agentskills.io):
+1. Edit `src/agent/system-prompt.ts` or `docs/*.md` in `bkper-cli`
+2. Run `bun run generate:skill`
+3. The test suite validates the output
+4. Commit both repositories
+
+This keeps the skill in sync with the **actually validated** agent behavior, instead of drifting into theory.
+
+## Skill Structure
 
 ```
 skills/
-└── skill-name/
-    └── SKILL.md
+└── bkper-dev/
+    ├── SKILL.md              ← Frontmatter + Bkper context + routing instructions
+    └── references/           ← Bundled docs (self-contained, no remote fetches needed)
+        ├── core-concepts.md
+        ├── index.md
+        ├── data-management.md
+        ├── app-management.md
+        ├── financial-statements.md
+        ├── bkper-js.md
+        └── bkper-api-types.md
 ```
 
-The `SKILL.md` file contains:
+## Canonical Experience vs. Skill Fallback
 
-- Procedural knowledge and patterns
-- Code examples and best practices
+| Capability                  | `bkper agent` (CLI)     | `bkper-dev` skill (other agents) |
+| --------------------------- | ----------------------- | -------------------------------- |
+| System prompt               | Always in context       | Loaded on-demand via description |
+| Core concepts enforcement   | Runtime tool blocking   | Plain-text instruction only      |
+| Doc paths                   | Resolved at runtime     | Relative `references/*.md`       |
+| Startup banner / maintenance | CLI harness hooks       | Not available                    |
+
+The `bkper agent` CLI mode is the **canonical validated path** because it has runtime enforcement (e.g. blocking non-read tools until `core-concepts.md` is loaded). The `bkper-dev` skill is a **best-effort fallback** for agents that cannot run the CLI harness.
+
+## Distribution
+
+There is no automatic distribution mechanism yet. To use this skill:
+
+1. Clone or pull this repository
+2. Copy `skills/bkper-dev/` to your agent's skills directory:
+   - Claude Code: `~/.claude/skills/bkper-dev/`
+   - OpenCode: `~/.claude/skills/bkper-dev/`
+   - pi: `.pi/skills/bkper-dev/` (project-local) or `~/.pi/agent/skills/bkper-dev/` (global)
 
 ## Contributing
 
-When updating skills:
+**Do not edit `SKILL.md` or files under `references/` directly.** They are overwritten by the generator.
 
-1. Edit the relevant `SKILL.md` file in `skills/`
-2. Commit and push to `main`
-3. Changes propagate to users instantly on next CLI command
+If you want to change the skill content, edit the source in `bkper-cli` instead:
+
+- `src/agent/system-prompt.ts` for context, principles, and routing
+- `docs/*.md` for reference documentation
+
+Then run `bun run generate:skill` in the CLI repo and commit both repositories.
+
+## Skill Format
+
+Follows the [Agent Skills specification](https://agentskills.io):
+
+- `SKILL.md` with YAML frontmatter (`name`, `description`)
+- Relative paths resolved against the skill directory
+- Bundled assets in subdirectories (e.g. `references/`)
 
 ## Compatibility
 
-Skills are compatible with:
+Compatible with any agent that implements the Agent Skills standard:
 
-- Claude Code (`~/.claude/skills/`)
-- OpenCode (`~/.claude/skills/`)
+- Claude Code
+- OpenCode
+- pi (`/skill:name` commands)
 - Other Agent Skills-compatible tools
