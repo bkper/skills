@@ -1,61 +1,37 @@
-# Bkper CLI Skill
+# Bkper Skills (deprecated)
 
-Portable Bkper CLI context for external AI coding agents.
+This repository is deprecated and should be archived.
 
-Use this when you want Claude Code, Codex, OpenCode, OpenClaw, Hermes Agent, Cursor, or another skill-compatible agent to work with the local `bkper` CLI safely.
+The Bkper CLI skill now lives with the Bkper CLI, because it is generated from the CLI agent configuration and is meant to help external coding agents operate the local `bkper` CLI safely.
 
-## Install
+## Install from the new source
 
-Install the CLI and authenticate first when the agent needs live Bkper access:
+```bash
+npx skills add bkper/bkper-cli --skill bkper-cli
+```
+
+Install and authenticate the CLI first when the agent needs live Bkper access:
 
 ```bash
 npm i -g bkper
 bkper auth login
 ```
 
-Then install the skill:
+## Migrating from the old repo
 
-```bash
-npx skills add bkper/skills --skill bkper-cli
-```
-
-This installs `bkper-cli` to your agent's skills directory. Works with Claude Code, pi, Codex, and any agent that supports the [Agent Skills standard](https://agentskills.io).
-
-Previously installed the old `bkper` skill? Remove it and install `bkper-cli` instead:
+If you installed the old `bkper` or `bkper-cli` skill from this repository, remove it and reinstall from `bkper/bkper-cli`:
 
 ```bash
 npx skills remove bkper
-npx skills add bkper/skills --skill bkper-cli
+npx skills remove bkper-cli
+npx skills add bkper/bkper-cli --skill bkper-cli
 ```
 
-## Use
+## General Bkper context
 
-Mention Bkper or the `bkper` CLI in your prompt and the skill loads automatically.
-
-```text
-"List transactions for January using the bkper CLI"
-"Create draft transactions from this CSV"
-"Build and deploy my Bkper app"
-```
-
-The skill teaches the agent Bkper's from-to accounting model, routes it to the right reference doc, and adds safety guardrails for CLI operations.
-
-For general Bkper Q&A without local tool access, use the published docs instead:
+For general Bkper Q&A without local CLI/tool access, use the published Markdown docs instead:
 
 ```text
 https://bkper.com/llms.txt
 https://bkper.com/docs/core-concepts.md
-```
-
-## What it covers
-
-- **CLI** — books, accounts, transactions, groups, balances, queries, collections
-- **Apps** — init, dev, build, deploy, secrets
-- **SDK references** — bkper-js and REST API types when CLI work needs code
-- **Reporting guardrails** — deterministic balance, statement, and tax workflows
-
-## Update
-
-```bash
-npx skills update bkper-cli
 ```
