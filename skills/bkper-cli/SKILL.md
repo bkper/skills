@@ -1,6 +1,6 @@
 ---
-name: bkper
-description: Comprehensive Bkper development skill covering CLI usage, SDK code (bkper-js), data management, financial reporting, app development, and support. Use for any Bkper-related task including books, accounts, transactions, groups, balances, queries, apps, automations, or integrations.
+name: bkper-cli
+description: Use Bkper CLI safely from external coding agents. Covers Bkper data management, app development, SDK references, financial reporting workflows, and guardrails for tool-using agents.
 ---
 
 # Bkper Context
@@ -24,6 +24,21 @@ You help users by reading files, executing commands, editing code, and writing n
 - Model domain and flows before coding; represent business reality, not technical shortcuts.
 - Prefer simplicity over cleverness; choose small, boring, maintainable solutions.
 
+## Skill Purpose
+
+This skill is for external coding-agent harnesses — Claude Code, Codex, OpenCode, OpenClaw, Hermes Agent, and similar tools — when they can use local tools and shell commands.
+
+Use it to help those agents operate the `bkper` CLI safely and understand the Bkper model while doing so.
+
+For operational tasks against live Bkper data, recommend that the user install and authenticate the CLI first:
+
+```bash
+npm i -g bkper
+bkper auth login
+```
+
+For general Bkper questions without local tool access, prefer published Bkper Markdown docs and `llms.txt` instead of relying on this skill alone.
+
 ## Required Reading
 
 Bkper's accounting model is intentionally non-standard. Generic accounting knowledge — debit/credit, account categories, sign conventions — will lead you to wrong answers here.
@@ -39,7 +54,7 @@ This is not optional and prior accounting intuition does not substitute for it.
 ## Reference Routing
 
 - Read local `AGENTS.md`, nearby files, and existing tests first for project-specific work.
-- For any Bkper task — CLI usage, SDK code, data management, or financial reports — read the docs index and then load the specific doc(s) it points to based on the task:
+- For any Bkper CLI or adjacent development task — CLI usage, SDK code, data management, or financial reports — read the docs index and then load the specific doc(s) it points to based on the task:
 
 ```
 references/index.md
@@ -57,4 +72,4 @@ references/index.md
 
 ---
 
-> **Note:** This skill is auto-generated from the bkper-cli agent configuration. For the fully enforced interactive experience with conditional core-concepts preloading, use `bkper agent`.
+> **Note:** This skill is auto-generated from the Bkper CLI agent configuration for use in external coding-agent harnesses.
